@@ -13,8 +13,7 @@ class Shagit
     Dir.foreach(".") do |path| 
       if FileTest.directory?(path) && FileTest.directory?("#{path}/hooks") && FileTest.directory?("#{path}/info") && FileTest.directory?("#{path}/objects") && FileTest.directory?("#{path}/refs")
         # create a new Grit repository object if a directory has been found that looks to be a folder containing a git repository
-        # @repositories << Repo.new(path) unless (path == "." || path == "..")
-        @repositories << Repo.new(path)
+        @repositories << Repo.new(path) unless (path == '.git')
       end
     end
   end

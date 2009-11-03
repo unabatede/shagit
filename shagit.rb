@@ -14,8 +14,8 @@ get '/' do
   end
   
   # show the paths of all available repositories
-  @repo_paths
-  #haml :index
+  #@repo_paths
+  haml :index
 end
 
 # create a new repository
