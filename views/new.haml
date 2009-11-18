@@ -1,0 +1,8 @@
+%html
+  %body
+    #login_format
+      %form{ :action => "/repo/new", :method => :post }
+        Repository Name: 
+        %input.text#repo_name{ :name => "name", :type => "text" }
+        %br/
+        %button{ :type => :submit }= "create"

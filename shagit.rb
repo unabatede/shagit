@@ -3,27 +3,37 @@ require 'sinatra'
 require 'haml'
 
 require 'lib/shagit'
+require 'lib/enhancing_grit.rb'
 
 # display all existing repositories
 get '/' do
   shagit = Shagit.new
   
-  @repo_paths = Array.new
+  @repo_names = Array.new
   shagit.repositories.each do |repo|
-    @repo_paths << repo.path
+    #repo_name = /([^\/]+\w+$)/.match(repo.path).to_s
+    #@repo_names << /\w+[^(.git)]/.match(repo_name).to_s
+    @repo_names << repo.repo_name
   end
   
-  # show the paths of all available repositories
-  #@repo_paths
+  # show paths of all available repositories
   haml :index
 end
 
+# display form to create a new repository
+get '/repo/new' do 
+  # show form for data entry used to create a new repository
+  haml :new
+end
+
 # create a new repository
-get '/repo/new/:name' do |repo|
+#post '/repo/new/:name' do |repo|
+post '/repo/new/?' do
   shagit = Shagit.new
-  
-  Shagit.create_repo(repo)
-  "Repository #{repo} created successfully"
+  repo_name = params[:name]
+
+  Shagit.create_repo(repo_name)
+  "Repository #{repo_name} created successfully"
 end
 
 # display information about one specific repository
