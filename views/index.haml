@@ -2,5 +2,11 @@
   %body
     %h1
       = "List of all Repositories"
+    %a(title = "Create new Repository"){:href => "/repo/new"} Create new Repository
     %p
-      = @repo_names || "no repositories created yet"
+      - if @shagit.repositories.length > 0
+        - @shagit.repositories.each do |repository|
+          %a(title = "#{repository.shagit_name}"){:href => "/repo/#{repository.shagit_foldername}" } #{repository.shagit_name}
+      - else
+        = "No repositories were found."
+
