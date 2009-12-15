@@ -1,4 +1,9 @@
 %html
+  %head
+    %meta{ :content => "text/html; charset=utf-8", :"http-equiv" => "Content-Type" }
+    %meta{ :content => "en", :"http-equiv" => "Content-Language" }
+    %title= "shagit"
+    - stylesheets(:reset, :buttons, :integrity)
   %body
     %h1
       = "List of all Repositories"
@@ -7,6 +12,7 @@
       - if @shagit.repositories.length > 0
         - @shagit.repositories.each do |repository|
           %a(title = "#{repository.shagit_name}"){:href => "/repo/#{repository.shagit_foldername}" } #{repository.shagit_name}
+          %br/
       - else
         = "No repositories were found."
 

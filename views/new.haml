@@ -2,7 +2,7 @@
   %body
     %h1
       = "Create new Repository"
-    #login_format
+    #login
       %form{ :action => "/repo/new", :method => :post }
         Repository Name: 
         %input.text#repo_name{ :name => "name", :type => "text" }

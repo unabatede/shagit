@@ -1,14 +1,16 @@
 require 'rubygems'
 require 'sinatra'
 require 'haml'
+require 'sass'
 
+require 'helpers/helpers'
+require 'lib/enhancing_grit'
 require 'lib/shagit'
-require 'lib/enhancing_grit.rb'
 
 # display all existing repositories
 get '/' do
   @shagit = Shagit.new
-  
+                                 
   #@repo_names = Array.new
   #shagit.repositories.each do |repo|
   #  @repo_names << repo.shagit_name
@@ -35,14 +37,26 @@ post '/repo/new/?' do
   #shagit = Shagit.new
   repo_name = params[:name]
 
-  Shagit.create_repo(repo_name)
-  "Repository #{repo_name} created successfully"
+  if Shagit.create_repo(repo_name)
+    "Repository #{repo_name} created successfully"
+  else
+    "Could not create repository"
+  end
 end
 
 # display information about one specific repository
 get '/repo/:name' do |repo|
+  @current_repo_name = repo
   @current_repo = Repo.new(repo)
   haml :repo
+end
+
+# optimize specified repository
+post '/repo/:name/optimize' do |repo| 
+  current_repo = Repo.new(repo)
+  current_repo.gc_auto
+  #"Done optimizing."
+  redirect "/repo/#{repo}"
 end
 
 not_found do

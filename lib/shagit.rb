@@ -18,8 +18,14 @@ class Shagit
     end
   end
 
-  # creates a new bare repository for the specified path
+  # creates a new bare repository for the specified path if it doesn't exist already  
   def self.create_repo(name)
-    Grit::Repo.init_bare("#{name}.git")
+    # if the repository already exists, simply return 'false'
+    if FileTest.directory?("#{name}.git")
+      false
+    else
+      Grit::Repo.init_bare("#{name}.git")
+    end
   end
+
 end
