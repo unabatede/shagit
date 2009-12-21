@@ -1,4 +1,9 @@
 %html
+  %head
+    %meta{ :content => "text/html; charset=utf-8", :"http-equiv" => "Content-Type" }
+    %meta{ :content => "en", :"http-equiv" => "Content-Language" }
+    %title= "shagit - display repository"
+    - stylesheets(:reset, :buttons, :integrity)
   %body
     %h1
       = "Viewing Repository"
@@ -11,3 +16,5 @@
         = "Actions for this repository"
       %form{ :action => "#{@current_repo_name}/optimize", :method => :post }
         %button{ :type => :submit }= "optimize"
+      %form{ :action => "#{@current_repo_name}/delete", :method => :post }
+        %button{ :type => :submit }= "delete"

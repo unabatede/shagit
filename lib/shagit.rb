@@ -28,4 +28,14 @@ class Shagit
     end
   end
 
+  # deletes an existing repository
+  def self.delete_repo!(full_repo_name)
+    if FileTest.directory?(full_repo_name)
+      FileUtils.rm_rf(full_repo_name)
+      true
+    else
+      false
+    end
+  end
+
 end

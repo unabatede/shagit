@@ -1,7 +1,6 @@
 require 'rubygems'
 require 'sinatra'
 require 'haml'
-require 'sass'
 
 require 'helpers/helpers'
 require 'lib/enhancing_grit'
@@ -57,6 +56,11 @@ post '/repo/:name/optimize' do |repo|
   current_repo.gc_auto
   #"Done optimizing."
   redirect "/repo/#{repo}"
+end
+
+# delete specified repository
+post '/repo/:name/delete' do |repo|
+  Shagit.delete_repo!(repo)
 end
 
 not_found do
