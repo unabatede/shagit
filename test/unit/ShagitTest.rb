@@ -13,9 +13,9 @@ class ShagitTest < Test::Unit::TestCase
     
     def test_initialize
       Shagit.create_repo(@@repo_name)
-      puts "Initializing repositories"
+      puts "Initializing repository"
       shagit = Shagit.new
-      assert_equal(1, shagit.repositories.length, 'repositories not initialized properly')
+      assert_equal(1, shagit.repositories.length, 'repository not initialized properly')
     end
 
     def test_gc_auto
@@ -24,8 +24,10 @@ class ShagitTest < Test::Unit::TestCase
       test_repo = Repo.new("#{@@repo_name}.git")
       assert(test_repo.gc_auto, 'could not auto optimize repository')
     end
-    
-    def teardown
-      `rm -rf #{@@repo_name}.git`
+
+    def test_delete
+      puts "Deleting repository"
+      result = Shagit.delete_repo!("#{@@repo_name}.git")
+      assert(result, 'repository could not be deleted')
     end
 end

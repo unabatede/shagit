@@ -1,18 +1,14 @@
-%html
-  %head
-    %meta{ :content => "text/html; charset=utf-8", :"http-equiv" => "Content-Type" }
-    %meta{ :content => "en", :"http-equiv" => "Content-Language" }
-    %title= "shagit"
-    - stylesheets(:reset, :buttons, :integrity)
-  %body
+- if @shagit.repositories.empty?
+  .blank_slate
+    %p None found?!
     %h1
-      = "List of all Repositories"
-    %a(title = "Create new Repository"){:href => "/repo/new"} Create new Repository
-    %p
-      - if @shagit.repositories.length > 0
-        - @shagit.repositories.each do |repository|
-          %a(title = "#{repository.shagit_name}"){:href => "/repo/#{repository.shagit_foldername}" } #{repository.shagit_name}
-          %br/
-      - else
-        = "No repositories were found."
-
+      Let's
+      = succeed "?" do
+        %a{ :href => "/repo/new" } create your first repository
+- else
+  %ul#projects
+    - @shagit.repositories.each do |repository|
+      %li{ :class => cycle("even", "odd") }
+        %a(title = "#{repository.shagit_name}"){:href => "/repo/#{repository.shagit_foldername}" } #{repository.shagit_name}
+    %p#new
+      %a{ :href => "/repo/new" } Add a new repository

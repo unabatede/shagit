@@ -1,20 +1,15 @@
-%html
-  %head
-    %meta{ :content => "text/html; charset=utf-8", :"http-equiv" => "Content-Type" }
-    %meta{ :content => "en", :"http-equiv" => "Content-Language" }
-    %title= "shagit - display repository"
-    - stylesheets(:reset, :buttons, :integrity)
-  %body
-    %h1
-      = "Viewing Repository"
-    %p
-      = "Displaying repo: #{@current_repo.shagit_name}"
-      %br/
-      = "size: #{@current_repo.shagit_size}"
-    #repository_info
-      %h3
-        = "Actions for this repository"
-      %form{ :action => "#{@current_repo_name}/optimize", :method => :post }
-        %button{ :type => :submit }= "optimize"
-      %form{ :action => "#{@current_repo_name}/delete", :method => :post }
-        %button{ :type => :submit }= "delete"
+%p
+  = "Repository Name: #{@current_repo.shagit_name}"
+  %br/
+  = "size: #{@current_repo.shagit_size}"
+  %br/
+  = "URI: #{full_path}/#{@current_repo.shagit_foldername}"
+#repository_info
+  %br/
+  %h3
+    = "Actions for this repository"
+  %form{ :action => "#{@current_repo_name}/optimize", :method => :post }
+    %button{ :type => :submit }= "optimize"
+  %form{ :action => "#{@current_repo_name}/delete", :method => :post }
+    %button{ :type => :submit }= "delete"
+  %br/
