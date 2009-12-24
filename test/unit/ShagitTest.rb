@@ -26,8 +26,13 @@ class ShagitTest < Test::Unit::TestCase
     end
 
     def test_delete
+      Shagit.create_repo(@@repo_name)
       puts "Deleting repository"
       result = Shagit.delete_repo!("#{@@repo_name}.git")
       assert(result, 'repository could not be deleted')
+    end
+
+    def teardown
+      `rm -rf #{@@repo_name}.git`
     end
 end
