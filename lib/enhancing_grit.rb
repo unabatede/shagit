@@ -16,11 +16,10 @@ module Grit
 
   # return size of folder containing the repository in Kilobytes
   def shagit_size
-    #size = `du -ks #{self.path} | cut -f 1`
     dirsize = 0
-    #Êrecursively search the repositories path and sum up all file sizes
-    Find.find(self.path) do |f|
-      dirsize += File.stat(f).size
+    # recursively search the repositories path and sum up all file sizes
+    Find.find(self.path) do |file|
+      dirsize += File.stat(file).size
     end
 
     dirsize
