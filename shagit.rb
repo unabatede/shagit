@@ -35,10 +35,11 @@ post '/repo/new/?' do
   repo_name = params[:name]
 
   if Shagit.create_repo(repo_name)
-    "Repository #{repo_name} created successfully"
+    @confirmation_message = "Repository <a href='#{repo_name}.git'>#{repo_name}</a> created successfully"
   else
-    "Could not create repository"
+    @confirmation_message = "Could not create repository"
   end
+  haml :new_confirmation
 end
 
 # display information about one specific repository
@@ -57,9 +58,19 @@ post '/repo/:name/optimize' do |repo|
   redirect "/repo/#{repo}"
 end
 
+# display a confirmation form if the repository really shall be deleted
+get '/repo/:name/delete' do |repo|
+  @title = "delete repository"
+  @current_repo_name = repo
+  haml :delete
+end
+
 # delete specified repository
 post '/repo/:name/delete' do |repo|
-  Shagit.delete_repo!(repo)
+  @title = "delete repository"
+  @confirmation_message = "the repository has been successfully deleted."
+  Shagit.delete_repo!(repo)  
+  haml :delete_confirmation
 end
 
 not_found do

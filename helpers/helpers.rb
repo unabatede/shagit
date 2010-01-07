@@ -14,7 +14,7 @@ end
 def full_path
   hostname = `hostname`
   full_path = `pwd`
-  "#{reformat_string(hostname)}:#{reformat_string(full_path)}"
+  "#{reformat_string(hostname)}#{reformat_string(full_path)}"
 end
 
 def reformat_string(source)

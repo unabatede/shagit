@@ -1,15 +1,37 @@
 %p
-  = "Repository Name: #{@current_repo.shagit_name}"
+  = "name: #{@current_repo.shagit_name}"
   %br/
-  = "size: #{@current_repo.shagit_size}"
+  = "size (in KBs): #{@current_repo.shagit_size}"
   %br/
-  = "URI: #{full_path}/#{@current_repo.shagit_foldername}"
+  = "location: ssh://#{full_path}/#{@current_repo.shagit_foldername}"
 #repository_info
   %br/
   %h3
-    = "Actions for this repository"
+    = "help on using a new repository"
+  %p
+    mkdir foo
+    %br/
+    cd foo
+    %br/
+    git init
+    %br/
+    touch README
+    %br/
+    git add README
+    %br/
+    git commit -m "initial commit"
+    %br/
+    git remote add origin ssh://houston/export/home/martin/projects/shagit/foo.git
+    %br/
+    git push origin master
+  %br/
+  %h3
+    = "actions for this repository"
   %form{ :action => "#{@current_repo_name}/optimize", :method => :post }
     %button{ :type => :submit }= "optimize"
-  %form{ :action => "#{@current_repo_name}/delete", :method => :post }
+  %form{ :action => "#{@current_repo_name}/delete", :method => :get }
     %button{ :type => :submit }= "delete"
   %br/
+  %br/
+  %h3
+    %a{ :href => "/" } go back to overview

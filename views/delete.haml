@@ -1,0 +1,12 @@
+%form{ :action => "/repo/#{@current_repo_name}/delete", :method => :post }
+  %br/
+  %h3
+    Are you sure you want to delete the following repository?
+  %h3
+    = @current_repo_name
+  %br/
+  %button{ :type => :submit }= "yes"
+
+%form{ :action => "/repo/#{@current_repo_name}", :method => :get }
+  %button{ :type => :submit }= "no"
+  %br/
