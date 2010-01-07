@@ -1,10 +1,12 @@
-%p
-  = "name: #{@current_repo.shagit_name}"
-  %br/
-  = "size (in KBs): #{@current_repo.shagit_size}"
-  %br/
-  = "location: ssh://#{full_path}/#{@current_repo.shagit_foldername}"
 #repository_info
+  %h3
+    = "stats & info"
+  %p
+    = "name: #{@current_repo.shagit_name}"
+    %br/
+    = "size (in KBs): #{@current_repo.shagit_size}"
+    %br/
+    = "location: ssh://#{full_path}/#{@current_repo.shagit_foldername}"
   %br/
   %h3
     = "help on using a new repository"
@@ -21,7 +23,7 @@
     %br/
     git commit -m "initial commit"
     %br/
-    git remote add origin ssh://houston/export/home/martin/projects/shagit/foo.git
+    = "git remote add origin ssh://#{full_path}/#{@current_repo.shagit_foldername}"
     %br/
     git push origin master
   %br/
