@@ -1,9 +1,12 @@
 Shagit
-A simple web-app based on Sinatra for managing local git repositories
-(c) 2010 Martin Gajdos. All rights reserved.
+A simple web-app for managing local git repositories
+Copyright (c) 2009, 2010 Martin Gajdos
+
+released under the MIT license
 
 Introduction
 ------------
+Shagit is a simple web application for managing your local git repositories. There's no need for a database and repositories are being privately published using ssh.
 
 Dependencies
 ------------
