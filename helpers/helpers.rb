@@ -1,3 +1,7 @@
+require 'lib/authorization'
+
+include Sinatra::Authorization
+
 def stylesheets(*sheets)
   sheets.each { |sheet|
     haml_tag(:link, :href => "/#{sheet}.css", :type => "text/css", :rel => "stylesheet")
@@ -19,4 +23,12 @@ end
 
 def reformat_string(source)
   source.chomp
+end
+
+def load_config(file)
+  if File.exist?(file)
+    yaml = YAML.load_file(file)
+    $username = yaml['username']
+    $password = yaml['password']
+  end
 end

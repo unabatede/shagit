@@ -6,6 +6,16 @@ require 'helpers/helpers'
 require 'lib/enhancing_grit'
 require 'lib/shagit'
 
+# read in credentials for admin user
+configure do
+  load_config "./config.yml"
+end
+
+# make sure every request is authorized
+before do
+  require_administrative_privileges
+end
+
 # display all existing repositories
 get '/' do
   @shagit = Shagit.new
