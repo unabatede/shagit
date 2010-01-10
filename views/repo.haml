@@ -10,22 +10,23 @@
   %br/
   %h3
     = "help on using new repositories"
-  %p
-    mkdir foo
-    %br/
-    cd foo
-    %br/
-    git init
-    %br/
-    touch README
-    %br/
-    git add README
-    %br/
-    git commit -m "initial commit"
-    %br/
-    = "git remote add origin ssh://#{full_path}/#{@current_repo.shagit_foldername}"
-    %br/
-    git push origin master
+  .frame
+    %p
+      mkdir foo
+      %br/
+      cd foo
+      %br/
+      git init
+      %br/
+      touch README
+      %br/
+      git add README
+      %br/
+      git commit -m "initial commit"
+      %br/
+      = "git remote add origin ssh://#{full_path}/#{@current_repo.shagit_foldername}"
+      %br/
+      git push origin master
   %br/
   %h3
     = "actions for this repository"
