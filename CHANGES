@@ -1,0 +1,6 @@
+0.1 Initial Release (2010-01-11)
+-------------------
+* Basic create, optimize and delete functions implemented for repositories
+* Authentication system implemented
+* Integration of Integrity's CSS and layout
+* Deployment via Phusion Passenger
