@@ -12,3 +12,6 @@
         managed with
         %a{ :href => "http://www.github.com/unabatede/shagit", :title => "Easy Git Repository Management" } shagit
     #content= yield
+    - if is_authorized?
+      #footer
+        %a{ :href => "/logout", :title => "log out", :method => "post"} log out

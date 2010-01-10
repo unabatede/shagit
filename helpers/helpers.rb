@@ -17,7 +17,7 @@ end
 
 def full_path
   hostname = `hostname`
-  full_path = `pwd`
+  full_path = Dir.pwd
   "#{reformat_string(hostname)}#{reformat_string(full_path)}"
 end
 

@@ -6,18 +6,18 @@ require 'helpers/helpers'
 require 'lib/enhancing_grit'
 require 'lib/shagit'
 
+# enable cookie-based sessions
+enable :sessions
+
 # read in credentials for admin user
 configure do
   load_config "./config.yml"
 end
 
-# make sure every request is authorized
-before do
-  require_administrative_privileges
-end
-
 # display all existing repositories
 get '/' do
+  requires_login
+
   @shagit = Shagit.new
   @title = "all repositories"
   
@@ -25,23 +25,53 @@ get '/' do
   haml :index
 end
 
+# display the login form
+get '/login' do
+  @title = "log in"
+  haml :login
+end
+
+# check whether the provided username and password are correct
+post '/login' do
+  username = params[:username]
+  password = params[:password]
+  
+  if authorize(username, password)
+    redirect('/')
+  else
+    @title = "log in"
+    haml :login_failed
+  end
+end
+
+get '/logout' do
+  requires_login
+
+  @title = "log out"
+  session["is_authorized"] = false
+  haml :logout
+end
+
 # if no repository has been specified, redirect to index
 get '/repo' do
+  requires_login
   redirect('/')
 end
 
 # display form to create a new repository
 get '/repo/new' do
+  requires_login
+
   @title = "create new repository"  
   # show form for data entry used to create a new repository
   haml :new
 end
 
 # create a new repository
-#post '/repo/new/:name' do |repo|
 post '/repo/new/?' do
+  requires_login
+
   @title = "create new repository"
-  #shagit = Shagit.new
   repo_name = params[:name]
 
   if Shagit.create_repo(repo_name)
@@ -54,6 +84,8 @@ end
 
 # display information about one specific repository
 get '/repo/:name' do |repo|
+  requires_login
+
   @title = "display repository"  
   @current_repo_name = repo
   @current_repo = Repo.new(repo)
@@ -61,22 +93,27 @@ get '/repo/:name' do |repo|
 end
 
 # optimize specified repository
-post '/repo/:name/optimize' do |repo| 
+put '/repo/:name/optimize' do |repo|
+  requires_login
+
   current_repo = Repo.new(repo)
   current_repo.gc_auto
-  #"Done optimizing."
   redirect "/repo/#{repo}"
 end
 
 # display a confirmation form if the repository really shall be deleted
 get '/repo/:name/delete' do |repo|
+  requires_login
+
   @title = "delete repository"
   @current_repo_name = repo
   haml :delete
 end
 
 # delete specified repository
-post '/repo/:name/delete' do |repo|
+delete '/repo/:name' do |repo|
+  requires_login
+
   @title = "delete repository"
   @confirmation_message = "the repository has been successfully deleted."
   Shagit.delete_repo!(repo)  
@@ -84,5 +121,8 @@ post '/repo/:name/delete' do |repo|
 end
 
 not_found do
+  requires_login
+
+  status 404
   "Sorry, couldn't find what you were looking for"
 end

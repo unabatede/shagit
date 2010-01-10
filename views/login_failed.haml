@@ -1,0 +1,13 @@
+%form{ :action => "/login", :method => :post }
+  .blank_slate
+    %h1
+      login failed, please try again
+  %br/
+  username:
+  %input.text#repo_name{ :name => "username", :type => "text" }
+  %br/
+  password:
+  %input.text#repo_name{ :name => "password", :type => "text" }
+  %br/
+  %br/
+  %button{ :type => :submit }= "login"

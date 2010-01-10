@@ -30,6 +30,7 @@
   %h3
     = "actions for this repository"
   %form{ :action => "#{@current_repo_name}/optimize", :method => :post }
+    %input.text#repo_name{ :name => "_method", :value => "put", :type => "hidden" }
     %button{ :type => :submit }= "optimize"
   %form{ :action => "#{@current_repo_name}/delete", :method => :get }
     %button{ :type => :submit }= "delete"

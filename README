@@ -12,6 +12,7 @@ Dependencies
 ------------
 * Sinatra
 * Rack
+* Haml
 
 Installation
 ------------

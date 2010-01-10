@@ -1,0 +1,9 @@
+.blank_slate
+  %p
+    you have successfully been logged out. see you next time!
+    %br/
+  %h1
+    or do you want to
+    = succeed "" do
+      %a{ :href => "/login", :title => "log in"} log in
+    again?
