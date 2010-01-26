@@ -1,5 +1,14 @@
+0.2 (2010-01-13)
+==================================
+* fixed password input field
+* implemented working_dir setting
+* converted README to Markdown format
+* moved helpers folder to lib
+* added $LOAD_PATH statements
+* renamed shagit.rb to shagit_app.rb due to name conflicts with lib/shagit.rb
+
 0.1 Initial Release (2010-01-11)
--------------------
+==================================
 * Basic create, optimize and delete functions implemented for repositories
 * Authentication system implemented
 * Integration of Integrity's CSS and layout

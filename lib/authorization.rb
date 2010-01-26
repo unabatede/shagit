@@ -7,6 +7,8 @@ module Sinatra
         true
       else
         session["is_authorized"] ||= false
+        puts "received: |#{username}| |#{password}|"
+        puts "should be: |#{$username}| |#{$password}|"
         false
       end
 

@@ -11,6 +11,8 @@ module Grit
   # return foldername from path without extension
   def shagit_name
     foldername = Pathname.new(self.shagit_foldername).basename.to_s
+
+    # extract repository name without .git extension
     repo_name = foldername.match(/^[\w\s]+/).to_s
   end
 

@@ -1,17 +1,21 @@
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), "lib/"))
+
 require 'rubygems'
 require 'sinatra'
 require 'haml'
 
 require 'helpers/helpers'
-require 'lib/enhancing_grit'
-require 'lib/shagit'
+require 'enhancing_grit'
+require 'shagit'
 
 # enable cookie-based sessions
-enable :sessions
+#enable :sessions
+# changed according to Webrat Documentation
+use Rack::Session::Cookie
 
 # read in credentials for admin user
 configure do
-  load_config "./config.yml"
+  load_config "config.yml"
 end
 
 # display all existing repositories
@@ -72,10 +76,10 @@ post '/repo/new/?' do
   requires_login
 
   @title = "create new repository"
-  repo_name = params[:name]
+  repo = params[:name]
 
-  if Shagit.create_repo(repo_name)
-    @confirmation_message = "Repository <a href='#{repo_name}.git'>#{repo_name}</a> created successfully"
+  if Shagit.create_repo(get_fullpath(repo))
+    @confirmation_message = "Repository <a href='#{repo}.git'>#{repo}</a> created successfully"
   else
     @confirmation_message = "Could not create repository"
   end
@@ -88,7 +92,7 @@ get '/repo/:name' do |repo|
 
   @title = "display repository"  
   @current_repo_name = repo
-  @current_repo = Repo.new(repo)
+  @current_repo = Repo.new(get_fullpath(repo))
   haml :repo
 end
 
@@ -96,7 +100,7 @@ end
 put '/repo/:name/optimize' do |repo|
   requires_login
 
-  current_repo = Repo.new(repo)
+  current_repo = Repo.new(get_fullpath(repo))
   current_repo.gc_auto
   redirect "/repo/#{repo}"
 end
@@ -116,7 +120,7 @@ delete '/repo/:name' do |repo|
 
   @title = "delete repository"
   @confirmation_message = "the repository has been successfully deleted."
-  Shagit.delete_repo!(repo)  
+  Shagit.delete_repo!(get_fullpath(repo))
   haml :delete_confirmation
 end
 

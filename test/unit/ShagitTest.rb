@@ -1,8 +1,11 @@
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), "../../lib"))
+
 require 'test/unit'
 require '../../lib/shagit'
 
 class ShagitTest < Test::Unit::TestCase
-    @@repo_name = 'test'
+    @@repo_name = 'unit-test.git'
+    $working_dir = '.'
 
     def test_create
       puts "Creating new repository"

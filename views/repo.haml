@@ -6,7 +6,7 @@
     %br/
     = "size (in KBs): #{@current_repo.shagit_size}"
     %br/
-    = "location: ssh://#{full_path}/#{@current_repo.shagit_foldername}"
+    = "location: #{full_path}"
   %br/
   %h3
     = "help on using new repositories"
@@ -24,7 +24,7 @@
       %br/
       git commit -m "initial commit"
       %br/
-      = "git remote add origin ssh://#{full_path}/#{@current_repo.shagit_foldername}"
+      = "git remote add origin #{full_path}"
       %br/
       git push origin master
   %br/
