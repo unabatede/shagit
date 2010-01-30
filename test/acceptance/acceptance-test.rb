@@ -14,7 +14,7 @@ Webrat.configure do |config|
   config.application_framework = :sinatra
 end
 
-class AppTest < Test::Unit::TestCase
+class AcceptanceTest < Test::Unit::TestCase
   include Rack::Test::Methods
   include Webrat::Methods
   include Webrat::Matchers
@@ -62,16 +62,18 @@ class AppTest < Test::Unit::TestCase
     assert_contain("display repository")
   end
 
-#  def test_05_deleting_repository
-#    test_01_logging_in
-#    visit "/"
-#    click_link "webrat"
-#    assert_contain("display repository")
-#    click_button "delete"
-#    save_and_open_page
-#    assert_contain("Are you sure you want to delete the following repository?")
-#    click_button "yes"
-#  end
+  def test_05_deleting_repository
+    test_01_logging_in
+    visit "/"
+    click_link "webrat"
+    assert_contain("display repository")
+    click_button "optimize"
+    #assert_contain("Are you sure you want to delete the following repository?")
+
+    save_and_open_page
+    #click_button "yes"
+    #assert_contain("the repository has been successfully deleted.")
+  end
 
 #  def test_06_logging_out
 #    test_01_logging_in

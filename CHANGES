@@ -6,6 +6,7 @@
 * moved helpers folder to lib
 * added $LOAD_PATH statements
 * renamed shagit.rb to shagit_app.rb due to name conflicts with lib/shagit.rb
+* added acceptance tests using Webrat
 
 0.1 Initial Release (2010-01-11)
 ==================================
