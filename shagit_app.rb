@@ -18,6 +18,11 @@ configure do
   load_config "config.yml"
 end
 
+# set utf-8 as content type for all responses
+before do
+  headers "Content-Type" => "text/html; charset=uft-8"
+end
+
 # display all existing repositories
 get '/' do
   requires_login

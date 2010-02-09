@@ -3,4 +3,4 @@ username: admin
 password: admin
 
 # set path in which repositories are going to be created
-working_dir: /export/home/martin/repos
+working_dir: 
