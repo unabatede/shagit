@@ -11,7 +11,8 @@ require 'shagit'
 # enable cookie-based sessions
 #enable :sessions
 # changed according to Webrat Documentation
-use Rack::Session::Cookie
+
+use Rack::Session::Cookie, :expire_after => 1200, :secret => 'only Shagit should have access!'
 
 # read in credentials for admin user
 configure do
@@ -25,7 +26,7 @@ end
 
 # display all existing repositories
 get '/' do
-  requires_login
+  requires_login!
 
   @shagit = Shagit.new
   @title = "all repositories"
@@ -45,7 +46,7 @@ post '/login' do
   username = params[:username]
   password = params[:password]
   
-  if authorize(username, password)
+  if authorize!(username, password)
     redirect('/')
   else
     @title = "log in"
@@ -54,22 +55,22 @@ post '/login' do
 end
 
 get '/logout' do
-  requires_login
+  requires_login!
 
   @title = "log out"
-  session["is_authorized"] = false
+  session[:authorized] = false
   haml :logout
 end
 
 # if no repository has been specified, redirect to index
 get '/repo' do
-  requires_login
+  requires_login!
   redirect('/')
 end
 
 # display form to create a new repository
 get '/repo/new' do
-  requires_login
+  requires_login!
 
   @title = "create new repository"  
   # show form for data entry used to create a new repository
@@ -78,7 +79,7 @@ end
 
 # create a new repository
 post '/repo/new/?' do
-  requires_login
+  requires_login!
 
   @title = "create new repository"
   repo = params[:name]
@@ -93,7 +94,7 @@ end
 
 # display information about one specific repository
 get '/repo/:name' do |repo|
-  requires_login
+  requires_login!
 
   @title = "display repository"  
   @current_repo_name = repo
@@ -103,7 +104,7 @@ end
 
 # optimize specified repository
 put '/repo/:name/optimize' do |repo|
-  requires_login
+  requires_login!
 
   current_repo = Repo.new(get_fullpath(repo))
   current_repo.gc_auto
@@ -112,7 +113,7 @@ end
 
 # display a confirmation form if the repository really shall be deleted
 get '/repo/:name/delete' do |repo|
-  requires_login
+  requires_login!
 
   @title = "delete repository"
   @current_repo_name = repo
@@ -121,7 +122,7 @@ end
 
 # delete specified repository
 delete '/repo/:name' do |repo|
-  requires_login
+  requires_login!
 
   @title = "delete repository"
   @confirmation_message = "the repository has been successfully deleted."
@@ -130,7 +131,7 @@ delete '/repo/:name' do |repo|
 end
 
 not_found do
-  requires_login
+  requires_login!
 
   status 404
   "Sorry, couldn't find what you were looking for"

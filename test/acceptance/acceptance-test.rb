@@ -6,8 +6,6 @@ require "rack/test"
 require "webrat"
 require "test/unit"
 
-use Rack::Session::Cookie
-
 Webrat.configure do |config|
   config.mode = :rack
   config.application_port = 4567
@@ -60,25 +58,30 @@ class AcceptanceTest < Test::Unit::TestCase
     visit "/"
     click_link "webrat"
     assert_contain("display repository")
+    assert_contain("actions for this repository")
   end
 
-  def test_05_deleting_repository
+  def test_05_optimizing_repository
+    test_01_logging_in
+    visit "/repo/webrat.git"
+    assert_contain("display repository")
+    assert_contain("actions for this repository")
+    click_button "optimize"
+  end
+
+  def test_06_deleting_repository
+    test_01_logging_in
+    visit "/repo/webrat.git/delete"
+    assert_contain(" Are you sure you want to delete the following repository?")
+    click_button "yes"
+    assert_contain("the repository has been successfully deleted.")
+  end
+
+  def test_07_logging_out
     test_01_logging_in
     visit "/"
-    click_link "webrat"
-    assert_contain("display repository")
-    click_button "optimize"
-    #assert_contain("Are you sure you want to delete the following repository?")
-
-    save_and_open_page
-    #click_button "yes"
-    #assert_contain("the repository has been successfully deleted.")
+    click_link "log out"
+    assert_contain("you have successfully been logged out. see you next time!")
+    assert_contain("or do you want to log in again?")
   end
-
-#  def test_06_logging_out
-#    test_01_logging_in
-#    visit "/"
-#    click_link "log out"
-#    assert_contain("you have successfully been logged out. see you next time! ")
-#  end
 end

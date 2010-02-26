@@ -1,12 +1,12 @@
 module Sinatra
   module Authorization
 
-    def authorize(username, password)
+    def authorize!(username, password)
       if (username == $username) && (password == $password)
-        session["is_authorized"] ||= true
+        session[:authorized] = true
         true
       else
-        session["is_authorized"] ||= false
+        session[:authorized] = false
         puts "received: |#{username}| |#{password}|"
         puts "should be: |#{$username}| |#{$password}|"
         false
@@ -15,14 +15,14 @@ module Sinatra
     end
 
     def is_authorized?
-      if session["is_authorized"]
+      if session[:authorized]
         true
       else
         false
       end
     end
 
-    def requires_login
+    def requires_login!
       if !is_authorized?
         redirect '/login'
       end
