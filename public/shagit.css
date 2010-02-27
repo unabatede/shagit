@@ -7,11 +7,11 @@ body {
   color: #333333; }
 
 a {
-  color: #ed1556;
+  color: #73de2d;
   text-decoration: none; }
   a:hover {
-    color: white;
-    background-color: #ed1556; }
+    color: #fff;
+    background-color: #73de2d; }
 
 #header, #content, #footer {
   width: 40em;
@@ -114,7 +114,7 @@ a {
     text-indent: -.65em; }
     #content form .required label:before {
       content: "* ";
-      color: #ed1556; }
+      color: #73de2d; }
   #content form .required input.text {
     width: 25.6em;
     font-size: 24px;
@@ -175,12 +175,12 @@ a {
       border: 0 none;
       background: transparent;
       display: inline;
-      color: #ed1556;
+      color: #73de2d;
       padding: 0.25em 0;
       margin: 0; }
       #content .blank_slate h1 button:hover, #content .error h1 button:hover {
-        background: #ed1556;
-        color: white; }
+        background: #73de2d;
+        color: #fff; }
   #content .error dt {
     margin-top: 1.4em;
     margin-bottom: .3em;
