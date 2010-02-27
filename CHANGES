@@ -1,4 +1,10 @@
-0.2 (2010-01-13)
+0.3 (2010-03-01)
+==================================
+* refactored global variables into a singleton class
+* changed require statement inside config.ru to reflect recent name changes
+* modified stylesheet
+
+0.2 (2010-02-27)
 ==================================
 * fixed password input field
 * implemented working_dir setting

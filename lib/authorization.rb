@@ -2,13 +2,14 @@ module Sinatra
   module Authorization
 
     def authorize!(username, password)
-      if (username == $username) && (password == $password)
+      # get the only instance of the Config class
+      config_data = ConfigInfo.instance
+
+      if (username == config_data.username) && (password == config_data.password)
         session[:authorized] = true
         true
       else
         session[:authorized] = false
-        puts "received: |#{username}| |#{password}|"
-        puts "should be: |#{$username}| |#{$password}|"
         false
       end
 

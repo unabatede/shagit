@@ -2,6 +2,7 @@ $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), "../"))
 
 require 'authorization'
 require 'pathname'
+require 'config_info'
 
 include Sinatra::Authorization
 
@@ -19,8 +20,10 @@ def cycle(*values)
 end
 
 def full_path
+  # get the only instance of the Config class
+  config_data = ConfigInfo.instance
   hostname = `hostname`
-  full_path = "#{$working_dir}/#{@current_repo.shagit_foldername}"
+  full_path = "#{config_data.working_dir}/#{@current_repo.shagit_foldername}"
   "ssh://#{reformat_string(hostname)}#{reformat_string(full_path)}"
 end
 
@@ -29,7 +32,7 @@ def reformat_string(source)
 end
 
 def  get_config_file_dir(dir)
-  # check whether this is being called from a webrat test and if yes, adjust the calling path for the config file
+  # check whether this is being called from a webrat test and if yes, adjust the calling path for the config_data file
   if dir[/[\w]+$/] == "helpers"
     dir = Pathname.new(File.expand_path(File.dirname(__FILE__)))
     dir.parent.parent
@@ -43,9 +46,11 @@ def load_config(file)
   absolute_filepath = File.join(get_config_file_dir(current_dir), file)
 
   if File.exist?(absolute_filepath)
+    config_data = ConfigInfo.instance
+
     yaml = YAML.load_file(absolute_filepath)
-    $username = yaml['username']
-    $password = yaml['password']
+    config_data.username = yaml['username']
+    config_data.password = yaml['password']
 
     working_dir = yaml['working_dir']
 
@@ -54,7 +59,7 @@ def load_config(file)
       working_dir = working_dir.strip
       # check whether the specified folder exists, if not, set it to the directory shagit's located at
       if FileTest.directory?(working_dir)
-        $working_dir = working_dir
+        config_data.working_dir = working_dir
       else
         set_working_dir_to_current_dir
       end
@@ -65,14 +70,17 @@ def load_config(file)
 end
 
 def set_working_dir_to_current_dir
-  $working_dir = "."
+  config_data = ConfigInfo.instance
+  config_data.working_dir = "."
 end
 
 def get_fullpath(path)
+  config_data = ConfigInfo.instance
+  
   # add the .git extension if it isn't there already
   if !path.include?('.git')
     path = "#{path}.git"  
   end
 
-  fullpath = "#{$working_dir}/#{path}"  
+  fullpath = "#{config_data.working_dir}/#{path}"  
 end

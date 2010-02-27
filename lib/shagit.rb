@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 require 'rubygems'
 require 'grit'
+require 'config_info'
 include Grit
 
 # Main class for shagit, initializes and manages all repositories
@@ -18,9 +19,12 @@ class Shagit
 
   # initialize shagit by looking for git repositories in specified path
   def initialize
+    # get the only instance of the Config class
+    config_data = ConfigInfo.instance
+
     @repositories = Array.new
-    Dir.foreach($working_dir) do |path|
-      fullpath = "#{$working_dir}/#{path}"
+    Dir.foreach(config_data.working_dir) do |path|
+      fullpath = "#{config_data.working_dir}/#{path}"
 
       if Shagit.is_it_a_git_repo?(fullpath)
         # create a new Grit repository object if a directory has been found that looks to be a folder containing a git repository
