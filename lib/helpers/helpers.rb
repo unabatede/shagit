@@ -22,8 +22,14 @@ end
 def full_path
   # get the only instance of the Config class
   config_data = ConfigInfo.instance
-  hostname = `hostname`
-  full_path = "#{config_data.working_dir}/#{@current_repo.shagit_foldername}"
+  #hostname = `hostname`
+  hostname = request.env['SERVER_NAME']
+  if (config_data.working_dir == '.')
+    full_path = "/#{@current_repo.shagit_foldername}"
+  else
+    full_path = "#{config_data.working_dir}/#{@current_repo.shagit_foldername}"
+  end
+
   "ssh://#{reformat_string(hostname)}#{reformat_string(full_path)}"
 end
 

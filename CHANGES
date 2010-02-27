@@ -1,8 +1,10 @@
-0.3 (2010-03-01)
+0.3 (2010-02-28)
 ==================================
 * refactored global variables into a singleton class
 * changed require statement inside config.ru to reflect recent name changes
 * modified stylesheet
+* exchanged OS call 'hostname' with request.env
+* fixed repository location bug
 
 0.2 (2010-02-27)
 ==================================
