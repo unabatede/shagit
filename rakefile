@@ -1,0 +1,85 @@
+begin
+  GEM = "shagit"
+  AUTHOR = "Martin Gajdos"
+  EMAIL = "contact@roboprojects.com"
+  SUMMARY = "A simple web application for local & private git repository management"
+  HOMEPAGE = "http://github.com/unabatede/shagit"
+  INSTALL_MESSAGE = %q{
+  ========================================================================
+  Thanks for installing Shagit!
+  ------------------------------------------------------------------------
+  You can now start Shagit by running the following command:
+    shagit
+
+  For a production environment you should consider using Phusion Passenger
+  or any other of the known Ruby deployment solutions that can be run as a
+  daemon. 
+
+  Find out more and get involved:
+    http://github.com/unabatede/shagit
+  ========================================================================
+  }
+
+  gem 'jeweler', '>= 1.0.0'
+  require 'jeweler'
+
+  Jeweler::Tasks.new do |s|
+    s.name = GEM
+    s.summary = SUMMARY
+    s.email = EMAIL
+    s.homepage = HOMEPAGE
+    s.description = SUMMARY
+    s.author = AUTHOR
+    s.post_install_message = INSTALL_MESSAGE
+    s.executables = ["shagit"]
+
+    s.require_path = 'lib'
+    s.files = %w(LICENSE CHANGES README.md config.ru config.yml shagit_app.rb VERSION.yml rakefile) + Dir.glob("{lib,public,views,test}/**/*")
+
+    # Runtime dependencies: When installing Formtastic these will be checked if they are installed.
+    # Will be offered to install these if they are not already installed.
+    s.add_dependency 'sinatra', '>= 0.9.4'
+    s.add_dependency 'haml', '>= 2.2.20'
+    s.add_dependency 'grit', '>= 2.0.0'
+
+    # Development dependencies. Not installed by default.
+    # Install with: sudo gem install shagit --development
+    s.add_development_dependency 'rack-test', '>= 0.5.3'
+    s.add_development_dependency 'webrat', '>= 0.7.0'
+  end
+
+  Jeweler::GemcutterTasks.new
+rescue LoadError
+  puts "[shagit:] Jeweler - or one of its dependencies - is not available. Install it using superuser-rights with: gem install jeweler"
+end
+
+
+task :default => [:setup_gems, :setup_config]
+
+desc "This task will install all required gems by shagit"
+task :setup_gems do
+  sh "gem install sinatra haml grit --no-ri --no-rdoc"
+end
+
+task :setup_dev_gems do
+  sh "gem install sinatra haml grit rack-test webrat jeweler --no-ri --no-rdoc"
+end
+
+task :test => [:unit_tests, :acceptance_tests]
+
+desc "This task will run all unit tests located within the test/unit directory"
+task :unit_tests do
+  require 'rake/runtest'
+  Rake.run_tests 'test/unit/*test.rb'
+end
+
+desc "This task will run all acceptance tests located within the test/acceptance directory"
+task :acceptance_tests do
+  require 'rake/runtest'
+  Rake.run_tests 'test/acceptance/*test.rb'
+end
+
+desc "This task will generate the gemspec file and afterwards create the gem based on it"
+task :build_gem => [:gemspec] do
+  sh "gem build shagit.gemspec"  
+end

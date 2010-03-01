@@ -1,4 +1,6 @@
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), "lib/"))
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..'))
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'views'))
 
 require 'rubygems'
 require 'sinatra'
@@ -7,10 +9,6 @@ require 'haml'
 require 'helpers/helpers'
 require 'enhancing_grit'
 require 'shagit'
-
-# enable cookie-based sessions
-#enable :sessions
-# changed according to Webrat Documentation
 
 use Rack::Session::Cookie, :expire_after => 1200, :secret => 'only Shagit should have access!'
 

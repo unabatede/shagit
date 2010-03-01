@@ -1,4 +1,4 @@
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), "../../lib"))
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '../../lib'))
 
 require 'test/unit'
 require 'lib/shagit'
@@ -21,7 +21,6 @@ class ShagitTest < Test::Unit::TestCase
       load_config(config_file)
       config_data = ConfigInfo.instance
       assert_equal(".", config_data.working_dir, 'loading configuration file failed')
-
     end
     
     def test_02_initialize
