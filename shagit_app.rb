@@ -15,6 +15,10 @@ use Rack::Session::Cookie, :expire_after => 1200, :secret => 'only Shagit should
 # read in credentials for admin user
 configure do
   load_config "config.yml"
+  dir = File.dirname(__FILE__)
+  if dir.include?('bin')
+    set :root, File.dirname(__FILE__)
+  end
 end
 
 # set utf-8 as content type for all responses
