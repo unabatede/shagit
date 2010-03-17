@@ -55,8 +55,7 @@ class AcceptanceTest < Test::Unit::TestCase
 
   def test_04_displaying_info_on_existing_repository
     test_01_logging_in
-    visit "/"
-    click_link "webrat"
+    visit "/repo/webrat.git"
     assert_contain("display repository")
     assert_contain("actions for this repository")
   end
@@ -72,7 +71,7 @@ class AcceptanceTest < Test::Unit::TestCase
   def test_06_deleting_repository
     test_01_logging_in
     visit "/repo/webrat.git/delete"
-    assert_contain(" Are you sure you want to delete the following repository?")
+    assert_contain("Are you sure you want to delete the following repository?")
     click_button "yes"
     assert_contain("the repository has been successfully deleted.")
   end
