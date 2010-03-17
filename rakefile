@@ -80,6 +80,15 @@ task :acceptance_tests do
 end
 
 desc "This task will generate the gemspec file and afterwards create the gem based on it"
-task :build_gem => [:gemspec] do
-  sh "gem build shagit.gemspec"  
+task :build_gem => [:clean, :gemspec] do
+  sh "gem build shagit.gemspec"
+end
+
+desc "This task will remove all temporary and generated files"
+task :clean do
+  Dir.new(".").each do |filename|
+    if filename =~ /\w+\.gem|.log/
+      File.delete(filename)
+    end
+  end
 end
