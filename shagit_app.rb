@@ -12,13 +12,10 @@ require 'shagit'
 
 use Rack::Session::Cookie, :expire_after => 1200, :secret => 'only Shagit should have access!'
 
-# read in credentials for admin user
+# read in configuration parameters from yaml file and check runtime environment
 configure do
   load_config "config.yml"
-  dir = File.dirname(__FILE__)
-  if dir.include?('bin')
-    set :root, File.dirname(__FILE__)
-  end
+  check_if_started_from_gem(File.dirname(__FILE__))
 end
 
 # set utf-8 as content type for all responses
