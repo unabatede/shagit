@@ -56,10 +56,10 @@ rescue LoadError
   puts "[shagit:] Jeweler - or one of its dependencies - is not available. Install it using superuser-rights with: gem install jeweler"
 end
 
-task :default => [:setup_gems, :setup_config]
+task :default => [:setup, :setup_config]
 
-desc "This task will install all required gems by shagit"
-task :setup_gems do
+desc "This task will install all required gems by Shagit"
+task :setup do
   sh "gem install sinatra haml grit --no-ri --no-rdoc"
 end
 
