@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Martin Gajdos"]
-  s.date = %q{2010-03-15}
+  s.date = %q{2010-03-17}
   s.default_executable = %q{shagit}
   s.description = %q{A simple web application for local & private git repository management}
   s.email = %q{contact@roboprojects.com}
@@ -53,11 +53,14 @@ Gem::Specification.new do |s|
   ========================================================================
   Thanks for installing Shagit!
   ------------------------------------------------------------------------
-  You can now start Shagit by running the following command:
+  Please set the path to your working directory within the config.yml file
+  before starting Shagit.
+
+  Once you're done, you can start Shagit by running the following command:
     shagit
 
   For a production environment you should consider using Phusion Passenger
-  or any other of the known Ruby deployment solutions that can be run as a
+  or any of the other known Ruby deployment solutions that can be run as a
   daemon. 
 
   Find out more and get involved:
