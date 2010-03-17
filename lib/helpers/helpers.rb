@@ -61,9 +61,9 @@ def load_config(file)
     working_dir = yaml['working_dir']
 
     # check whether working_dir has been specified
-    unless (working_dir == nil) || (working_dir.empty?)  
+    unless (working_dir == nil) || (working_dir.empty?)
       working_dir = working_dir.strip
-      # check whether the specified folder exists, if not, set it to the directory shagit's located at
+      # check whether the specified folder exists, if not, set it to the directory Shagit's located at
       if FileTest.directory?(working_dir)
         config_data.working_dir = working_dir
       else
@@ -82,11 +82,34 @@ end
 
 def get_fullpath(path)
   config_data = ConfigInfo.instance
-  
+
   # add the .git extension if it isn't there already
   if !path.include?('.git')
-    path = "#{path}.git"  
+    path = "#{path}.git"
   end
 
-  fullpath = "#{config_data.working_dir}/#{path}"  
+  fullpath = "#{config_data.working_dir}/#{path}"
+end
+
+def check_if_started_from_gem(current_working_directory)
+  config_data = ConfigInfo.instance
+
+  # check if the bin folder is included in the directory this file is located in
+  if current_working_directory.include?('bin')
+    if (config_data.working_dir == '.')
+      puts "FATAL ERROR: The directory for saving repositories cannot be used!"
+      puts "Please set the path in your config.yml accordingly."
+      exit
+    end
+
+    # if so, we know Shagit has been installed via gem and the application's root folder has to be redirected
+    set :root, current_working_directory
+  end
+
+  # check if the working directory for saving repositories is writable
+  if !FileTest.writable_real?(config_data.working_dir)
+    puts "FATAL ERROR: The directory for saving repositories (#{config_data.working_dir}) is not writable!"
+    puts "Please adjust your config.yml accordingly."
+    exit
+  end
 end
