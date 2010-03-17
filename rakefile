@@ -89,7 +89,7 @@ end
 desc "This task will remove all temporary and generated files"
 task :clean do
   Dir.new(".").each do |filename|
-    if filename =~ /\w+\.gem|.log/
+    if filename =~ /\w+\.gem|.log|.html/
       File.delete(filename)
     end
   end
