@@ -2,7 +2,7 @@ begin
   GEM = "shagit"
   AUTHOR = "Martin Gajdos"
   EMAIL = "contact@roboprojects.com"
-  SUMMARY = "A simple web application for local & private git repository management"
+  SUMMARY = "A simple web application for local, private git repository management"
   HOMEPAGE = "http://github.com/unabatede/shagit"
   INSTALL_MESSAGE = %q{
   ========================================================================
@@ -71,8 +71,9 @@ task :test => [:unit_tests, :acceptance_tests]
 
 desc "This task will run all unit tests located within the test/unit directory"
 task :unit_tests do
-  require 'rake/runtest'
-  Rake.run_tests 'test/unit/*test.rb'
+  #require 'rake/runtest'
+  #Rake.run_tests 'test/unit/*test.rb'
+  print "please run these tests manually by changing to test/unit and executing shagit_test.rb"
 end
 
 desc "This task will run all acceptance tests located within the test/acceptance directory"
@@ -88,8 +89,10 @@ end
 
 desc "This task will remove all temporary and generated files"
 task :clean do
+  puts "cleaning up..."
   Dir.new(".").each do |filename|
     if filename =~ /\w+\.gem|.log|.html/
+      puts "removing file: #{filename}"
       File.delete(filename)
     end
   end

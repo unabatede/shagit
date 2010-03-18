@@ -1,10 +1,9 @@
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '../../lib'))
-
 require 'test/unit'
-require 'lib/shagit'
+require '../../lib/shagit'
+require '../../lib/enhancing_grit'
 
 class ShagitTest < Test::Unit::TestCase
-    @@repo_name = 'unit-test.git'
+    @@repo_name = 'unit_test.git'
     $working_dir = '.'
 
     def test_00_create
@@ -20,9 +19,9 @@ class ShagitTest < Test::Unit::TestCase
       require 'lib/helpers/helpers'
       load_config(config_file)
       config_data = ConfigInfo.instance
-      assert_equal(".", config_data.working_dir, 'loading configuration file failed')
+      assert_equal($working_dir, config_data.working_dir, 'loading configuration file failed')
     end
-    
+
     def test_02_initialize
       Shagit.create_repo(@@repo_name)
       puts "Initializing repository"

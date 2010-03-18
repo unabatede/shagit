@@ -1,4 +1,4 @@
-0.3 (2010-03-04)
+0.3 (2010-03-18)
 ==================================
 * refactored global variables into a singleton class
 * changed require statement inside config.ru to reflect recent name changes
@@ -9,6 +9,7 @@
 * added proper dependencies for production & development to gem
 * added new test case to unit test (tests loading of the configuration file)
 * added gem building using jeweler
+* added runtime check (to check if Shagit was installed using the gem)
 
 0.2 (2010-02-27)
 ==================================

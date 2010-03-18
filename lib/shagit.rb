@@ -33,7 +33,7 @@ class Shagit
     end
   end
 
-  # creates a new bare repository for the specified path if it doesn't exist already  
+  # creates a new bare repository for the specified path if it doesn't already exist  
   def self.create_repo(full_repo_name)
     # if the repository already exists, simply return 'false'
     if FileTest.directory?(full_repo_name)

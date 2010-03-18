@@ -1,7 +1,7 @@
 Shagit
 ============
 
-Description: A simple web application for local git repository management written in Sinatra
+Description: A simple web application for local, private git repository management written in Sinatra
 Copyright (c) 2009, 2010 Martin Gajdos
 
 released under the MIT license
