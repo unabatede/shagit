@@ -1,4 +1,8 @@
-0.3 (2010-03-18)
+0.3.1 (2010-03-19)
+==================================
+* added full installation path when advising user to change his config.yml
+
+0.3.0 (2010-03-18)
 ==================================
 * refactored global variables into a singleton class
 * changed require statement inside config.ru to reflect recent name changes
@@ -11,7 +15,7 @@
 * added gem building using jeweler
 * added runtime check (to check if Shagit was installed using the gem)
 
-0.2 (2010-02-27)
+0.2.0 (2010-02-27)
 ==================================
 * fixed password input field
 * implemented working_dir setting
@@ -21,7 +25,7 @@
 * renamed shagit.rb to shagit_app.rb due to name conflicts with lib/shagit.rb
 * added acceptance tests using Webrat
 
-0.1 Initial Release (2010-01-11)
+0.1.0 Initial Release (2010-01-11)
 ==================================
 * Basic create, optimize and delete functions implemented for repositories
 * Authentication system implemented

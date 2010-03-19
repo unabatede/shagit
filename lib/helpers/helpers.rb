@@ -97,8 +97,10 @@ def check_if_started_from_gem(current_working_directory)
   # check if the bin folder is included in the directory this file is located in
   if current_working_directory.include?('bin')
     if (config_data.working_dir == '.')
+      # extract source installation directory of the gem
+      gem_installation_dir = File.dirname(__FILE__).split('bin')[0]
       puts "FATAL ERROR: The directory for saving repositories cannot be used!"
-      puts "Please set the path in your config.yml accordingly."
+      puts "Please set the path in your #{gem_installation_dir}config.yml accordingly."
       exit
     end
 
