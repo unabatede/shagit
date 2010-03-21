@@ -35,7 +35,7 @@ Inside the repository, install the required gems by running:
 
     rake setup
 
-Take a look at the 'config.yml' to see if you want to change any of the settings including the password for the admin user
+Take a look at 'config.yml' to see if you want to change any of the settings including the password for the admin user
 
 Run it (you should consider other options for production deployment, see below):
 
