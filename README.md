@@ -25,18 +25,34 @@ Installation
 
 You will need a working installation of Ruby >=1.8.6, RubyGems >= 1.3.5 and Git >= 1.5
 
-Clone the repository:
+You can either clone this repository, or install the gem:
+
+### Clone the repository
 
     git clone git://github.com/unabatede/shagit.git
 
-Install the Sinatra, Haml & Grit gems:
+Inside the repository, install the required gems by running:
 
-    gem install sinatra haml grit rack-test webrat
+    rake setup
 
-Run it (you should consider other options for production deployment):
+Take a look at the 'config.yml' to see if you want to change any of the settings including the password for the admin user
+
+Run it (you should consider other options for production deployment, see below):
 
     cd shagit
     ruby shagit.rb -e production
+
+### Install Gem
+
+Install the gem by running:
+
+    gem install shagit
+
+Take a look at the 'config.yml' to see if you want to change any of the settings including the password for the admin user
+
+Simply start by executing:
+
+    shagit
 
 Deployment
 ----------
